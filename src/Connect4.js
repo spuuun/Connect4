@@ -1,3 +1,6 @@
+// renamed App.js to Connect4.js
+// we can change the name of the component if we want
+
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
