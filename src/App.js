@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Starting to work on Connect4
         </a>
       </header>
     </div>
