@@ -1,3 +1,6 @@
+// renamed App.js to Connect4.js
+// we can change the name of the component if we want
+
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -8,7 +11,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/Connect4.js</code> and save to reload.
         </p>
         <a
           className="App-link"
