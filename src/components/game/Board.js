@@ -2,14 +2,6 @@ import { database } from "firebase"
 
 // actual game board --- contains 2d array comprising the "board", game logic, game pieces, etc.
 
-
-// implementation of an enum --- but i don't think we need it
-// const spaceState = {
-//     0: "empty",
-//     1: "player1",
-//     2: "player2"
-// }
-// Object.freeze(spaceState)
 state = {
     gameGrid: [],
     player1: '',
