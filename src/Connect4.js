@@ -5,6 +5,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import RegistrationForm from './components/auth/RegistrationForm';
+
 function App() {
   return (
     <div className="App">
@@ -22,6 +24,7 @@ function App() {
           Starting to work on Connect4
         </a>
       </header>
+      <RegistrationForm />
     </div>
   );
 }
