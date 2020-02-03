@@ -1,3 +1,5 @@
+import { database } from "firebase"
+
 // actual game board --- contains 2d array comprising the "board", game logic, game pieces, etc.
 
 
@@ -8,6 +10,14 @@
 //     2: "player2"
 // }
 // Object.freeze(spaceState)
+state = {
+    gameGrid: [],
+    player1: '',
+    player2: '',
+    turnNumber: 0,
+    winner: ''
+}
+
 
 const gameGrid = [
     [0, 0, 0, 0, 0, 0, 0],
@@ -44,4 +54,3 @@ const dropPiece = (columnIndex) => {
 }
 
 // search the grid for win condition after each players turn 
-
