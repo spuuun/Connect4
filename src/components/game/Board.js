@@ -113,13 +113,13 @@ render() {
           <div>Who's turn? Player {this.whichPlayer(this.state.turnNumber)}</div>
           <div className="board">
           <ButtonGroup size="small" aria-label="small outlined button group">
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
-            <Button className="play-button" onClick={this.dropPiece}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(0)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(1)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(2)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(3)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(4)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(5)}>&darr;</Button>
+            <Button className="play-button" onClick={() => this.dropPiece(6)}>&darr;</Button>
           </ButtonGroup>
 
           {gameGrid.map((row, index) => {
