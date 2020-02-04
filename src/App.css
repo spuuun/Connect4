@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  display: none;
 }
 
 .App-link {
@@ -53,7 +54,8 @@
 .cell {
      display: inline-block;
      padding: 8px;
-     width: 20px;
+     width: 42px;
+     height: 42px;
      margin: 0 0.5px;
      border-radius: 50%;
 }
@@ -72,11 +74,18 @@
      background: black;
 }
 
+.icon-area {
+     margin-top: 5px;
+}
+
 button.play-button {
-     min-width: 38px;
-     background: #f5f5f5;
+     min-width: 59px;
 }
 
 .board {
      padding: 40px;
+}
+
+.action-button-area {
+     margin-bottom: 30px;
 }
