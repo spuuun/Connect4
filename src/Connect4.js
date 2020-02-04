@@ -6,6 +6,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import RegistrationForm from './components/auth/RegistrationForm';
+import Board from './components/game/Board';
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
           Starting to work on Connect4
         </a>
       </header>
-      <RegistrationForm />
+      <Board />
+      { //<RegistrationForm />
+      }
     </div>
   );
 }

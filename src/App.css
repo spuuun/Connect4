@@ -36,3 +36,47 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+
+/* ---- CLB CSS ------ */
+
+.board-row {
+     /* padding: 0px;
+     background: #ddd; */
+     margin-bottom: 1px;
+}
+
+.cell {
+     display: inline-block;
+     padding: 8px;
+     width: 20px;
+     margin: 0 0.5px;
+     border-radius: 50%;
+}
+
+.cell.empty {
+     background: #fff;
+}
+
+.cell.player-1 {
+     color: #fff;
+     background: red;
+}
+
+.cell.player-2 {
+     color: #fff;
+     background: black;
+}
+
+button.play-button {
+     min-width: 38px;
+     background: #f5f5f5;
+}
+
+.board {
+     padding: 40px;
+}
