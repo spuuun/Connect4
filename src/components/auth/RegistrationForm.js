@@ -77,7 +77,7 @@ authenticateGithub = () => {
 
 authenticateGoogle = () => {
      console.log("Authenticate with Google");
-     const authProviderGithub = new firebase.auth.GoogleAuthProvider();
+     const authProviderGoogle = new firebase.auth.GoogleAuthProvider();
      firebaseApp
           .auth()
           .signInWithPopup(authProviderGoogle)

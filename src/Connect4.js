@@ -2,9 +2,8 @@
 // we can change the name of the component if we want
 
 import React from 'react';
-import Navbar from './components/nav'
+import Navbar from './components/nav/Navbar'
 import ApplicationViews from './components/ApplicationViews'
-import logo from './logo.svg';
 import './App.css';
 
 function App() {

@@ -1,26 +1,26 @@
 import React, { Component } from 'react'
-import { Route, Redirect, Link } from 'react-router-dom'
-import Register from './src/components/auth/RegistrationForm';
-// import LandingAndLoginForm from './components/auth/LandingAndLoginForm';
+import { Route, Redirect, withRouter } from 'react-router-dom'
+import Register from './auth/RegistrationForm';
+import LandingAndLoginForm from './auth/LandingAndLoginForm';
 import Board from './game/Board';
-// {CreateNew, History, OpenGames} from './home'
-// {ActiveGame, PendingGame} from './game'
-// api from './data/dataManager'
-
+// import LandingAndLoginForm from './auth/LandingAndLoginForm';
 
 export default class ApplicationViews extends Component {
     render() {
         return (
             <>
-            <div>hi</div>
-                {/* <Route path='' render={} />
-                <Route path='' render={} />
-                <Route path='' render={} />
-                <Route path='' render={} /> */}
-
-                {/* <LandingAndLoginForm /> */}
-                <Register />
-                <Board />
+                {/* For the '/' path:
+                    we'll want to replace board with <Home /> component or something later - once we have it */}
+                <Route exact path="/" render={(props) => {
+                    return <Board />
+                }} />
+                <Route path='/board' render={(props) => {
+                    return <Board/>
+                }}/>
+                <Route exact path='/register' render={(props) => {
+                    return <Register />
+                }} />
+                <Route path="/login" component={LandingAndLoginForm} />
             </>
         )
     }
