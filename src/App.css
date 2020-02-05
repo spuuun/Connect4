@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  display: none;
 }
 
 .App-link {
@@ -35,4 +36,56 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+
+
+
+/* ---- CLB CSS ------ */
+
+.board-row {
+     /* padding: 0px;
+     background: #ddd; */
+     margin-bottom: 1px;
+}
+
+.cell {
+     display: inline-block;
+     padding: 8px;
+     width: 42px;
+     height: 42px;
+     margin: 0 0.5px;
+     border-radius: 50%;
+}
+
+.cell.empty {
+     background: #fff;
+}
+
+.cell.player-1 {
+     color: #fff;
+     background: red;
+}
+
+.cell.player-2 {
+     color: #fff;
+     background: black;
+}
+
+.icon-area {
+     margin-top: 5px;
+}
+
+button.play-button {
+     min-width: 59px;
+}
+
+.board {
+     padding: 40px;
+}
+
+.action-button-area {
+     margin-bottom: 30px;
 }
