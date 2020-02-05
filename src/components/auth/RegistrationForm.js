@@ -26,6 +26,8 @@ class Register extends React.Component {
          this.state = {
            email: '',
            password: '',
+           passwordConfirm: '',
+           username: '',
            error: null,
          };
 
@@ -74,11 +76,11 @@ authenticateGithub = () => {
 
 
 authenticateGoogle = () => {
-     console.log("Authenticate with Github");
+     console.log("Authenticate with Google");
      const authProviderGithub = new firebase.auth.GoogleAuthProvider();
      firebaseApp
           .auth()
-          .signInWithPopup(authProviderGithub)
+          .signInWithPopup(authProviderGoogle)
           .then(this.authHandler);
 };
 
@@ -111,6 +113,14 @@ authenticateGoogle = () => {
                             value={this.email}
                             onChange={this.handleInputChange}
                             />
+                        <TextField
+                            id="login-form-username"
+                            name="username"
+                            label="Username"
+                            required
+                            value={this.username}
+                            onChange={this.handleInputChange}
+                            />
                        </div>
                        <div className="registration-area">
                          <TextField
@@ -121,6 +131,16 @@ authenticateGoogle = () => {
                          required
                          placeholder="Password"
                          value={this.password}
+                         onChange={this.handleInputChange}
+                         />
+                         <TextField
+                         id="login-form-passwordConfirm"
+                         type="password"
+                         name="passwordConfirm"
+                         label="Password Confirmation"
+                         required
+                         placeholder="enter your password again to confirm"
+                         value={this.passwordConfirm}
                          onChange={this.handleInputChange}
                          />
                       </div>
