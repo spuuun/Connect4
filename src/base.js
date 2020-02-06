@@ -27,8 +27,14 @@ const base = Rebase.createClass(firebaseApp.database());
 
 const FirebaseContext = React.createContext(null);
 
+const withFirebase = Component => props => (
+  <FirebaseContext.Consumer>
+    {firebase => <Component {...props} firebase={firebase} />}
+  </FirebaseContext.Consumer>
+);
+
 // This is a named export
-export { firebaseApp, FirebaseContext };
+export { firebaseApp, FirebaseContext, withFirebase };
 
 // This is a default export
 export default base;

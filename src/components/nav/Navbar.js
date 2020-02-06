@@ -13,6 +13,7 @@ class Navbar extends Component {
                         {/* TODO: create <Games/> component that renders CreateNew  & OpenGameList
                         something like:
                             <li><Link to='/games'>Play!</Link></li> */}
+                            <li><Link to='/account-details'>Your Profile</Link></li>
                         <li><Link to='/board'>game board</Link></li>
                         <li><Link to='/register'>Register New Account</Link></li>
                     </ul>

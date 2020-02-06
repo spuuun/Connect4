@@ -3,6 +3,9 @@ import { Route, Redirect, withRouter } from 'react-router-dom'
 import Register from './auth/RegistrationForm';
 import LandingAndLoginForm from './auth/LandingAndLoginForm';
 import Board from './game/Board';
+import PasswordReset from './auth/PasswordReset'
+import AccountDetails from './auth/AccountDetails'
+
 // import LandingAndLoginForm from './auth/LandingAndLoginForm';
 
 export default class ApplicationViews extends Component {
@@ -20,7 +23,13 @@ export default class ApplicationViews extends Component {
                 <Route exact path='/register' render={(props) => {
                     return <Register />
                 }} />
-                <Route path="/login" component={LandingAndLoginForm} />
+                <Route path='/login' component={LandingAndLoginForm} />
+                <Route path='/password-reset' render={(props) => {
+                    return <PasswordReset />
+                }} />
+                <Route path='/account-details' render={(props) => {
+                    return <AccountDetails />
+                }} />
             </>
         )
     }
