@@ -1,5 +1,7 @@
+import React from 'react';
 import Rebase from 're-base';
 import firebase from 'firebase';
+import 'firebase/database'
 
 const config = {
      apiKey: process.env.REACT_APP_API_KEY,
@@ -11,12 +13,14 @@ const config = {
      appId: process.env.REACT_APP_ID
    };
 
-const firebaseApp = firebase.initializeApp(config)
+const firebaseApp = firebase.initializeApp(config);
 
 const base = Rebase.createClass(firebaseApp.database());
 
+const FirebaseContext = React.createContext(null);
+
 // This is a named export
-export { firebaseApp };
+export { firebaseApp, FirebaseContext };
 
 // This is a default export
 export default base;
