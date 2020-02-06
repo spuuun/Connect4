@@ -13,7 +13,15 @@ const config = {
      appId: process.env.REACT_APP_ID
    };
 
-const firebaseApp = firebase.initializeApp(config);
+// const firebaseApp {
+//      constructor() {
+//      firebase.initializeApp(config);
+
+//      this.auth = firebase.auth();
+//      }
+// }
+
+const firebaseApp = firebase.initializeApp(config)
 
 const base = Rebase.createClass(firebaseApp.database());
 

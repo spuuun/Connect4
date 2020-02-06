@@ -9,6 +9,7 @@ import { faCoffee, faAxeBattle } from '@fortawesome/pro-solid-svg-icons';
 import { faCircle } from '@fortawesome/pro-light-svg-icons'
 import { faFlame, faAngry, faBowlingBall, faBat, faDragon } from "@fortawesome/pro-duotone-svg-icons";
 import { database } from "firebase"
+import GameManager from '../../modules/GameManager'
 
 const shortid = require('shortid');
 
