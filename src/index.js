@@ -5,15 +5,20 @@ import App from './Connect4';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
 
+const UserContext = React.createContext('defaultUser')
+const ThemeContext = React.createContext('light')
+
 
 // TODO
 // initalize firebase here and create a new context with authenticated user for the whole application to consume
 
 
 ReactDOM.render(
-    <Router>
-        <App />
-    </Router>
+    <UserContext.Provider value="defaultValue">
+        <Router>
+            <App />
+        </Router>
+    </UserContext.Provider>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
