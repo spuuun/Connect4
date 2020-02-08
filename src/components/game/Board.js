@@ -37,13 +37,13 @@ componentDidMount(){
      console.log('Board mounted');
 
      const gameGrid = [
-         [0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0],
-    ];
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+         [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
+     ];
 
     //let turnNumber = 1
     this.setState({
@@ -66,7 +66,7 @@ whichPlayer = numTurns => {
 
 fullColumnCheck = (columnIndex) => {
      // use map to get an array of a single column
-     const columnPieces = this.state.gameGrid.map(function(value,index) { return value[columnIndex]; });
+     const columnPieces = this.state.gameGrid.map(function(value,index) { return value[columnIndex].value; });
 
      // use vanilla 'includes' method to check if there are any zeros in column
      const columnPlayable = columnPieces.includes(0);
@@ -82,9 +82,10 @@ dropPiece = (e) => {
      console.log("dropPiece column: " + columnIndex);
     // check the bottom of column. if empty, change to value of whatever player's turn it is
     for (let i = this.state.gameGrid.length; i > 0; i--) {
-        if (this.state.gameGrid[i - 1][columnIndex] === 0) {
+        if (this.state.gameGrid[i - 1][columnIndex].value === 0) {
             // change value at that coordinate
-            this.state.gameGrid[i - 1][columnIndex] = this.whichPlayer(this.state.turnNumber);
+            this.state.gameGrid[i - 1][columnIndex].value = this.whichPlayer(this.state.turnNumber);
+            this.state.gameGrid[i - 1][columnIndex].turnNumber = this.state.turnNumber;
             break
         }
     }
@@ -128,6 +129,8 @@ render() {
      }
      //console.log(columnButtons);
 
+     console.log(gameGrid);
+
     return (
       <div className="game-board-area">
           <h2>Connect4!</h2>
@@ -144,15 +147,15 @@ render() {
             <div key={index} className={"board-row row-"+ index}>
                  {row.map((cell) => {
                       let animate = '';
-                      if( turnNumber+1 === this.state.turnNumber ) { animate = ' animate'; } else { animate = ''; }
-                      let cellClass = 'empty ';
-                      let cellContent = <div className={"icon-area blank turn-" + turnNumber + animate}><FontAwesomeIcon icon={faCircle} size='2x' /></div>;
-                      if(cell === 1) {
-                           cellClass = 'player-1 ';
-                           cellContent = <div className={"icon-area dragon turn-" + turnNumber + animate}><FontAwesomeIcon icon={faDragon} size='2x' /></div>;
-                      } else if(cell === 2) {
-                           cellClass = 'player-2 ';
-                           cellContent = <div className={"icon-area axe turn-" + turnNumber + animate}><FontAwesomeIcon icon={faAxeBattle} size='2x' /></div>;
+                      if( cell.turnNumber+1 === this.state.turnNumber ) { animate = ' animate'; } else { animate = ''; }
+                      let cellClass = 'empty';
+                      let cellContent = <div className={"icon-area blank turn-" + turnNumber}><FontAwesomeIcon icon={faCircle} size='2x' /></div>;
+                      if(cell.value === 1) {
+                           cellClass = 'player-1' + animate;
+                           cellContent = <div className={"icon-area dragon turn-" + turnNumber}><FontAwesomeIcon icon={faDragon} size='2x' /></div>;
+                      } else if(cell.value === 2) {
+                           cellClass = 'player-2' + animate;
+                           cellContent = <div className={"icon-area axe turn-" + turnNumber}><FontAwesomeIcon icon={faAxeBattle} size='2x' /></div>;
                       }
 
                   return (

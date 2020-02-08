@@ -94,19 +94,91 @@ button.play-button {
      text-align: center;
 }
 
-
-
-.cell.player-1, .cell.player-2 {
+.cell.animate {
      animation-duration: 1.5s;
-     animation-name: falldown;
+     animation-name: falldown500;
      animation-iteration-count: 1;
      animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
 }
 
-@keyframes falldown {
-        0%   { transform: translateY(-400px); }
-        50%  { transform: translateY(0); }
-        57%  { transform: translateY(-7px); }
-        64%  { transform: translateY(0); }
-        100% { transform: translateY(0); }
-   }
+.row-5 .cell.animate {
+     animation-duration: 1.5s;
+     animation-name: falldown500;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.row-4 .cell.animate {
+     animation-duration: 1.25s;
+     animation-name: falldown400;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.row-3 .cell.animate {
+     animation-duration: 1s;
+     animation-name: falldown300;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.row-2 .cell.animate {
+     animation-duration: .75s;
+     animation-name: falldown200;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.row-1 .cell.animate {
+     animation-duration: .75s;
+     animation-name: falldown100;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.row-0 .cell.animate {
+     animation-duration: .75s;
+     animation-name: falldown100;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+@keyframes falldown500 {
+   0%   { transform: translateY(-500px); }
+   50%  { transform: translateY(0); }
+   57%  { transform: translateY(-7px); }
+   64%  { transform: translateY(0); }
+   100% { transform: translateY(0); }
+}
+
+@keyframes falldown400 {
+   0%   { transform: translateY(-400px); }
+   50%  { transform: translateY(0); }
+   57%  { transform: translateY(-7px); }
+   64%  { transform: translateY(0); }
+   100% { transform: translateY(0); }
+}
+
+@keyframes falldown300 {
+   0%   { transform: translateY(-300px); }
+   50%  { transform: translateY(0); }
+   57%  { transform: translateY(-7px); }
+   64%  { transform: translateY(0); }
+   100% { transform: translateY(0); }
+}
+
+@keyframes falldown200 {
+   0%   { transform: translateY(-200px); }
+   50%  { transform: translateY(0); }
+   57%  { transform: translateY(-7px); }
+   64%  { transform: translateY(0); }
+   100% { transform: translateY(0); }
+}
+
+@keyframes falldown100 {
+   0%   { transform: translateY(-100px); }
+   50%  { transform: translateY(0); }
+   57%  { transform: translateY(-7px); }
+   64%  { transform: translateY(0); }
+   100% { transform: translateY(0); }
+}
