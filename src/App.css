@@ -89,3 +89,24 @@ button.play-button {
 .action-button-area {
      margin-bottom: 30px;
 }
+
+.game-board-area {
+     text-align: center;
+}
+
+
+
+.cell.player-1, .cell.player-2 {
+     animation-duration: 1.5s;
+     animation-name: falldown;
+     animation-iteration-count: 1;
+     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+@keyframes falldown {
+        0%   { transform: translateY(-400px); }
+        50%  { transform: translateY(0); }
+        57%  { transform: translateY(-7px); }
+        64%  { transform: translateY(0); }
+        100% { transform: translateY(0); }
+   }

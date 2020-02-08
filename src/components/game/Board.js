@@ -81,7 +81,9 @@ fullColumnCheck = (columnIndex) => {
 }
 
 
-dropPiece = (columnIndex) => {
+dropPiece = (e) => {
+     e.preventDefault();
+     const columnIndex = e.currentTarget.value;
      console.log("dropPiece column: " + columnIndex);
     // check the bottom of column. if empty, change to value of whatever player's turn it is
     for (let i = this.state.gameGrid.length; i > 0; i--) {
@@ -95,10 +97,9 @@ dropPiece = (columnIndex) => {
     this.setState(prevState => ({
       turnNumber: prevState.turnNumber+1
      }));
+
+     //find all the existing pieces and add a class so that they are not re-animated
 }
-
-
-
 
 
 useStyles = makeStyles(theme => ({
@@ -119,6 +120,15 @@ render() {
 
      // search the grid for win condition after each players turn
      const gameGrid = this.state.gameGrid;
+     const columnButtons = [];
+     for (var i = 0; i <= 6; i++) {
+          if( this.fullColumnCheck(i) )  {
+               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} onClick={(e) =>{ this.dropPiece(e)}} value={i} >&darr;</Button> );
+          } else {
+               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} disabled>&darr;</Button> );
+          }
+     }
+     //console.log(columnButtons);
 
     return (
       <div className="game-board-area">
@@ -128,20 +138,7 @@ render() {
           <div className="board">
           <div className="action-button-area">
           <ButtonGroup size="small" variant="contained" color="primary" aria-label="small contained primary button group">
-            {this.fullColumnCheck(0) ? ( <Button id="play-col-0" className="play-button" onClick={() => this.dropPiece(0)}>&darr;</Button> )
-               : ( <Button id="play-col-0" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(1) ? ( <Button id="play-col-1" className="play-button" onClick={() => this.dropPiece(1)}>&darr;</Button> )
-               : ( <Button id="play-col-1" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(2) ? ( <Button id="play-col-2" className="play-button" onClick={() => this.dropPiece(2)}>&darr;</Button> )
-               : ( <Button id="play-col-2" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(3) ? ( <Button id="play-col-3" className="play-button" onClick={() => this.dropPiece(3)}>&darr;</Button> )
-               : ( <Button id="play-col-3" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(4) ? ( <Button id="play-col-4" className="play-button" onClick={() => this.dropPiece(4)}>&darr;</Button> )
-               : ( <Button id="play-col-4" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(5) ? ( <Button id="play-col-5" className="play-button" onClick={() => this.dropPiece(5)}>&darr;</Button> )
-               : ( <Button id="play-col-5" className="play-button" disabled>&darr;</Button> )}
-            {this.fullColumnCheck(6) ? ( <Button id="play-col-6" className="play-button" onClick={() => this.dropPiece(6)}>&darr;</Button> )
-               : ( <Button id="play-col-6" className="play-button" disabled>&darr;</Button> )}
+               { columnButtons }
           </ButtonGroup>
           </div>
           {gameGrid.map((row, index) => {
