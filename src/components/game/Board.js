@@ -63,11 +63,6 @@ whichPlayer = numTurns => {
     }
 }
 
-turnCountTester = () => {
-     this.setState(prevState => ({
-       turnNumber: prevState.turnNumber+1
-      }));
-}
 
 fullColumnCheck = (columnIndex) => {
      // use map to get an array of a single column
@@ -99,6 +94,8 @@ dropPiece = (e) => {
      }));
 
      //find all the existing pieces and add a class so that they are not re-animated
+
+
 }
 
 
@@ -117,6 +114,7 @@ useStyles = makeStyles(theme => ({
 render() {
 
      const classes = this.useStyles;
+     const turnNumber = this.state.turnNumber - 1;
 
      // search the grid for win condition after each players turn
      const gameGrid = this.state.gameGrid;
@@ -145,14 +143,16 @@ render() {
            return (
             <div key={index} className={"board-row row-"+ index}>
                  {row.map((cell) => {
-                      let cellClass = 'empty';
-                      let cellContent = <div className="icon-area blank"><FontAwesomeIcon icon={faCircle} size='2x' /></div>;
+                      let animate = '';
+                      if( turnNumber+1 === this.state.turnNumber ) { animate = ' animate'; } else { animate = ''; }
+                      let cellClass = 'empty ';
+                      let cellContent = <div className={"icon-area blank turn-" + turnNumber + animate}><FontAwesomeIcon icon={faCircle} size='2x' /></div>;
                       if(cell === 1) {
-                           cellClass = 'player-1';
-                           cellContent = <div className="icon-area dragon"><FontAwesomeIcon icon={faDragon} size='2x' /></div>;
+                           cellClass = 'player-1 ';
+                           cellContent = <div className={"icon-area dragon turn-" + turnNumber + animate}><FontAwesomeIcon icon={faDragon} size='2x' /></div>;
                       } else if(cell === 2) {
-                           cellClass = 'player-2';
-                           cellContent = <div className="icon-area axe"><FontAwesomeIcon icon={faAxeBattle} size='2x' /></div>;
+                           cellClass = 'player-2 ';
+                           cellContent = <div className={"icon-area axe turn-" + turnNumber + animate}><FontAwesomeIcon icon={faAxeBattle} size='2x' /></div>;
                       }
 
                   return (
