@@ -121,8 +121,8 @@ winCheck = (gameGrid) => {
                     // Player 1 test
                     const playerOnePieceTotal = rowArray.filter(z => z === 1).length;
                     if( playerOnePieceTotal > 3 ) {
-                         console.log("Player One Check: " + this.check(rowArray));
-                         if( this.check(rowArray, 4) ) {
+                         console.log("Player One Check (row): " + this.checkFourInARow(rowArray));
+                         if( this.checkFourInARow(rowArray, 4) ) {
                               this.setState({
                                        winner: 'Player 1',
                                      });
@@ -132,8 +132,8 @@ winCheck = (gameGrid) => {
                     // Player 2 test
                     const playerTwoPieceTotal = rowArray.filter(z => z === 2).length;
                     if( playerTwoPieceTotal > 3 ) {
-                         console.log("Player Two Check: " + this.check(rowArray));
-                         if( this.check(rowArray, 4) ) {
+                         console.log("Player Two Check (row): " + this.checkFourInARow(rowArray));
+                         if( this.checkFourInARow(rowArray, 4) ) {
                               this.setState({
                                        winner: 'Player 2',
                                      });
@@ -144,11 +144,42 @@ winCheck = (gameGrid) => {
           }
      );
 
+     // check columns
+     for (let i = 0; i < 7; i++) {
+          const column = this.state.gameGrid.map(function(value,index) { return value[i].value; });
+          console.log(column);
+          let numZeros = column.filter(z => z === 0).length;
+          if( numZeros < 3 ) {
+
+               // Player 1 test
+               const playerOnePieceTotal = column.filter(z => z === 1).length;
+               if( playerOnePieceTotal > 3 ) {
+                    console.log("Player One Check (col): " + this.checkFourInARow(column));
+                    if( this.checkFourInARow(column, 4) ) {
+                         this.setState({
+                                  winner: 'Player 1',
+                               });
+                    }
+               }
+
+               // Player 2 test
+               const playerTwoPieceTotal = column.filter(z => z === 2).length;
+               if( playerTwoPieceTotal > 3 ) {
+                    console.log("Player Two Check (col): " + this.checkFourInARow(column));
+                    if( this.checkFourInARow(column, 4) ) {
+                         this.setState({
+                                  winner: 'Player 2',
+                               });
+                    }
+               }
+
+          }
+     }
 
 }
 
 
-check = (array) => {
+checkFourInARow = (array) => {
     var count = 0,
         value = array[0];
 
@@ -161,37 +192,6 @@ check = (array) => {
     });
 }
 
-//
-// check4 = (array) => {
-//     const playerOnePieceTotal = array.filter(z => z === 1).length;
-//     console.log("playerOnePieceTotal - " + playerOnePieceTotal);
-//     const playerTwoPieceTotal = array.filter(z => z === 2).length;
-//     console.log("playerTwoPieceTotal - " + playerTwoPieceTotal);
-//     if( playerOnePieceTotal < 4 && playerTwoPieceTotal < 4 ) { return false; }
-//     if( playerOnePieceTotal === 4 ) {
-//          // slice extra 0 or 2 out of array, then check if any numbers left in array are not 1
-//
-//          const firstPosition = array.findIndex(one => one === 1);
-//          const lastPosition = array.lastIndexOf(1);
-//          if( lastPosition - firstPosition === 3 ) {
-//               console.log("PLAYER 1 WINS!");
-//          }
-//
-//     }
-// }
-//
-//
-//
-// check3 = (array) => {
-//     return array.some(function (a, i, aa) {
-//          console.log("a: " + a);
-//          console.log("i: " + i);
-//          console.log("aa: " + aa);
-//          if( a + i + aa === 0 ) { return false; }
-//         return i > 1 && a === aa[i - 2] && a === aa[i - 1];
-//     });
-// }
-//
 
 
 
