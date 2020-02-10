@@ -94,10 +94,107 @@ dropPiece = (e) => {
       turnNumber: prevState.turnNumber+1
      }));
 
-     //find all the existing pieces and add a class so that they are not re-animated
+     // run winCheck here
+     this.winCheck(this.state.gameGrid);
+
+}
+
+
+
+winCheck = (gameGrid) => {
+
+     console.log("winCheck");
+     console.log(gameGrid);
+     let winner = '';
+
+     // check rows
+     gameGrid.forEach(
+          row => {
+               console.log(row);
+               //create new array with values only
+               let rowArray = [];
+               row.forEach( cell => rowArray.push(cell.value));
+               console.log(rowArray);
+               let numZeros = rowArray.filter(z => z === 0).length;
+               if( numZeros < 4 ) {
+
+                    // Player 1 test
+                    const playerOnePieceTotal = rowArray.filter(z => z === 1).length;
+                    if( playerOnePieceTotal > 3 ) {
+                         console.log("Player One Check: " + this.check(rowArray));
+                         if( this.check(rowArray, 4) ) {
+                              this.setState({
+                                       winner: 'Player 1',
+                                     });
+                         }
+                    }
+
+                    // Player 2 test
+                    const playerTwoPieceTotal = rowArray.filter(z => z === 2).length;
+                    if( playerTwoPieceTotal > 3 ) {
+                         console.log("Player Two Check: " + this.check(rowArray));
+                         if( this.check(rowArray, 4) ) {
+                              this.setState({
+                                       winner: 'Player 2',
+                                     });
+                         }
+                    }
+
+               }
+          }
+     );
 
 
 }
+
+
+check = (array) => {
+    var count = 0,
+        value = array[0];
+
+    return array.some(function (a) {
+        if (value !== a) {
+            count = 0;
+            value = a;
+        }
+        return ++count === 4;
+    });
+}
+
+//
+// check4 = (array) => {
+//     const playerOnePieceTotal = array.filter(z => z === 1).length;
+//     console.log("playerOnePieceTotal - " + playerOnePieceTotal);
+//     const playerTwoPieceTotal = array.filter(z => z === 2).length;
+//     console.log("playerTwoPieceTotal - " + playerTwoPieceTotal);
+//     if( playerOnePieceTotal < 4 && playerTwoPieceTotal < 4 ) { return false; }
+//     if( playerOnePieceTotal === 4 ) {
+//          // slice extra 0 or 2 out of array, then check if any numbers left in array are not 1
+//
+//          const firstPosition = array.findIndex(one => one === 1);
+//          const lastPosition = array.lastIndexOf(1);
+//          if( lastPosition - firstPosition === 3 ) {
+//               console.log("PLAYER 1 WINS!");
+//          }
+//
+//     }
+// }
+//
+//
+//
+// check3 = (array) => {
+//     return array.some(function (a, i, aa) {
+//          console.log("a: " + a);
+//          console.log("i: " + i);
+//          console.log("aa: " + aa);
+//          if( a + i + aa === 0 ) { return false; }
+//         return i > 1 && a === aa[i - 2] && a === aa[i - 1];
+//     });
+// }
+//
+
+
+
 
 
 useStyles = makeStyles(theme => ({
@@ -121,7 +218,7 @@ render() {
      const gameGrid = this.state.gameGrid;
      const columnButtons = [];
      for (var i = 0; i <= 6; i++) {
-          if( this.fullColumnCheck(i) )  {
+          if( this.fullColumnCheck(i) && !this.state.winner )  {
                columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} onClick={(e) =>{ this.dropPiece(e)}} value={i} >&darr;</Button> );
           } else {
                columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} disabled>&darr;</Button> );
@@ -129,11 +226,17 @@ render() {
      }
      //console.log(columnButtons);
 
-     console.log(gameGrid);
+     //console.log(gameGrid);
+
+     let winner = null;
+     if(  this.state.winner ) {
+          winner = <div className="announcement winner"><h3>WINNER: {this.state.winner}</h3></div>;
+     }
 
     return (
       <div className="game-board-area">
           <h2>Connect4!</h2>
+               {winner}
           <div>Turn number: {this.state.turnNumber}</div>
           <div>Who's turn? Player {this.whichPlayer(this.state.turnNumber)}</div>
           <div className="board">

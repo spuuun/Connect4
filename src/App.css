@@ -145,40 +145,51 @@ button.play-button {
 
 @keyframes falldown500 {
    0%   { transform: translateY(-500px); }
-   50%  { transform: translateY(0); }
-   57%  { transform: translateY(-7px); }
-   64%  { transform: translateY(0); }
-   100% { transform: translateY(0); }
+   50%  { transform: translateY(0) rotateZ(180deg); }
+   57%  { transform: translateY(-7px) rotateZ(190deg); }
+   64%  { transform: translateY(0) rotateZ(200deg); }
+   100% { transform: translateY(0) rotateZ(360deg); }
 }
 
 @keyframes falldown400 {
    0%   { transform: translateY(-400px); }
-   50%  { transform: translateY(0); }
-   57%  { transform: translateY(-7px); }
-   64%  { transform: translateY(0); }
-   100% { transform: translateY(0); }
+   50%  { transform: translateY(0) rotateZ(180deg); }
+   57%  { transform: translateY(-7px) rotateZ(190deg); }
+   64%  { transform: translateY(0) rotateZ(200deg); }
+   100% { transform: translateY(0) rotateZ(360deg); }
 }
 
 @keyframes falldown300 {
    0%   { transform: translateY(-300px); }
-   50%  { transform: translateY(0); }
-   57%  { transform: translateY(-7px); }
-   64%  { transform: translateY(0); }
-   100% { transform: translateY(0); }
+   50%  { transform: translateY(0) rotateZ(180deg); }
+   57%  { transform: translateY(-7px) rotateZ(190deg); }
+   64%  { transform: translateY(0) rotateZ(200deg); }
+   100% { transform: translateY(0) rotateZ(360deg); }
 }
 
 @keyframes falldown200 {
    0%   { transform: translateY(-200px); }
-   50%  { transform: translateY(0); }
-   57%  { transform: translateY(-7px); }
-   64%  { transform: translateY(0); }
-   100% { transform: translateY(0); }
+   50%  { transform: translateY(0) rotateZ(180deg); }
+   57%  { transform: translateY(-7px) rotateZ(190deg); }
+   64%  { transform: translateY(0) rotateZ(200deg); }
+   100% { transform: translateY(0) rotateZ(360deg); }
 }
 
 @keyframes falldown100 {
    0%   { transform: translateY(-100px); }
-   50%  { transform: translateY(0); }
-   57%  { transform: translateY(-7px); }
-   64%  { transform: translateY(0); }
-   100% { transform: translateY(0); }
+   50%  { transform: translateY(0) rotateZ(180deg); }
+   57%  { transform: translateY(-7px) rotateZ(190deg); }
+   64%  { transform: translateY(0) rotateZ(200deg); }
+   100% { transform: translateY(0) rotateZ(360deg); }
+}
+
+
+
+
+.announcement.winner {
+     display: inline-block;
+     background: yellow;
+     padding: 0px 20px;
+     border-radius: 5px;
+     margin-bottom: 20px;
 }
