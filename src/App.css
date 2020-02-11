@@ -61,7 +61,12 @@
 }
 
 .cell.empty {
-     background: #fff;
+     background: #ffff80;
+     border-radius: 0;
+}
+
+.icon-area.blank {
+     color: #fff;
 }
 
 .cell.player-1 {
