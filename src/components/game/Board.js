@@ -462,7 +462,7 @@ transformDiagonalPhase6 = () => {
 
 render() {
 
-     const turnNumber = this.state.turnNumber - 1;
+     //const turnNumber = this.state.turnNumber - 1;
      const gameGrid = this.state.gameGrid;
      const columnButtons = [];
 
@@ -510,7 +510,7 @@ render() {
                       }
 
                   return (
-                   <span key={shortid.generate()} className={"cell " + cellClass}>{cellContent}</span>
+                   <span className="board-single-container"><span key={shortid.generate()} className={"cell " + cellClass}>{cellContent}</span></span>
                   )
                  })}
             </div>

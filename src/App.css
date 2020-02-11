@@ -51,18 +51,27 @@
      margin-bottom: 1px;
 }
 
-.cell {
+.board-single-container {
      display: inline-block;
      padding: 8px;
      width: 42px;
      height: 42px;
+     margin: 0 1px;
+     background: #ffff80;
+}
+
+.cell {
+     /* display: inline-block;
+     padding: 8px;
+     width: 42px;
+     height: 42px;
      margin: 0 0.5px;
-     border-radius: 50%;
+     border-radius: 50%; */
 }
 
 .cell.empty {
-     background: #ffff80;
-     border-radius: 0;
+     /* background: #ffff80;
+     border-radius: 0; */
 }
 
 .icon-area.blank {
@@ -72,11 +81,31 @@
 .cell.player-1 {
      color: #fff;
      background: red;
+     display: inline-block;
+     border-radius: 50%;
+     height: 46px;
+     width: 46px;
+     /*
+     padding: 8px;
+     width: 42px;
+     height: 42px;
+     margin: 0 0.5px;
+     border-radius: 50%; */
 }
 
 .cell.player-2 {
      color: #fff;
      background: black;
+     display: inline-block;
+     border-radius: 50%;
+     height: 46px;
+     width: 46px;
+     /*
+     padding: 8px;
+     width: 42px;
+     height: 42px;
+     margin: 0 0.5px;
+     border-radius: 50%; */
 }
 
 .icon-area {
@@ -193,7 +222,7 @@ button.play-button {
 
 .announcement.winner {
      display: inline-block;
-     background: yellow;
+     background: #ffff80;
      padding: 0px 20px;
      border-radius: 5px;
      margin-bottom: 20px;
