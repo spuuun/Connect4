@@ -110,11 +110,11 @@ winCheck = (gameGrid) => {
      // check rows
      gameGrid.forEach(
           row => {
-               console.log(row);
+               //console.log(row);
                //create new array with values only
                let rowArray = [];
                row.forEach( cell => rowArray.push(cell.value));
-               console.log(rowArray);
+               //console.log(rowArray);
                let numZeros = rowArray.filter(z => z === 0).length;
                if( numZeros < 4 ) {
 
@@ -147,7 +147,7 @@ winCheck = (gameGrid) => {
      // check columns
      for (let i = 0; i < 7; i++) {
           const column = this.state.gameGrid.map(function(value,index) { return value[i].value; });
-          console.log(column);
+          //console.log(column);
           let numZeros = column.filter(z => z === 0).length;
           if( numZeros < 3 ) {
 
@@ -155,7 +155,7 @@ winCheck = (gameGrid) => {
                const playerOnePieceTotal = column.filter(z => z === 1).length;
                if( playerOnePieceTotal > 3 ) {
                     console.log("Player One Check (col): " + this.checkFourInARow(column));
-                    if( this.checkFourInARow(column, 4) ) {
+                    if( this.checkFourInARow(column) ) {
                          this.setState({
                                   winner: 'Player 1',
                                });
@@ -166,7 +166,7 @@ winCheck = (gameGrid) => {
                const playerTwoPieceTotal = column.filter(z => z === 2).length;
                if( playerTwoPieceTotal > 3 ) {
                     console.log("Player Two Check (col): " + this.checkFourInARow(column));
-                    if( this.checkFourInARow(column, 4) ) {
+                    if( this.checkFourInARow(column) ) {
                          this.setState({
                                   winner: 'Player 2',
                                });
@@ -175,6 +175,16 @@ winCheck = (gameGrid) => {
 
           }
      }
+
+
+     // check Diagonals by converting each possible diagonal into an array
+     this.transformDiagonalPhase1();
+     this.transformDiagonalPhase2();
+     this.transformDiagonalPhase3();
+     this.transformDiagonalPhase4();
+     this.transformDiagonalPhase5();
+     this.transformDiagonalPhase6();
+
 
 }
 
@@ -194,6 +204,431 @@ checkFourInARow = (array) => {
 
 
 
+// Checks 4 diagonals, from 0,5 to 3,5
+transformDiagonalPhase1 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 5; yCoord >= 0; yCoord--) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               //console.log(x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
+
+
+
+// Checks 1 diagonal, from 0,4 to 4,0
+transformDiagonalPhase2 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 4; yCoord >= 0; yCoord--) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               //console.log(x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
+
+
+
+
+// Checks 1 diagonal, from 0,3 to 3,0
+transformDiagonalPhase3 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 3; yCoord >= 0; yCoord--) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               //console.log(x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
+
+
+// Checks 4 diagonals, from 0,0 to 6,0
+transformDiagonalPhase4 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 0; yCoord <= 5; yCoord++) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               console.log("transformDiagonalPhase4 - " + x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
+
+
+
+
+// Checks 1 diagonal, from 0,1 to 4,0
+transformDiagonalPhase5 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 1; yCoord <= 5; yCoord++) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               //console.log(x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
+
+
+
+
+// Checks 1 diagonal, from 0,2 to 3,0
+transformDiagonalPhase6 = () => {
+
+     let winCheckDiagonal = [];
+
+     for (let xCoord = 0; xCoord <= 6; xCoord++) {
+          let x = xCoord;
+          let coordinateArray = [];
+
+          for (let yCoord = 2; yCoord <= 5; yCoord++) {
+
+               if( x > 6 ) break;
+               let y = yCoord;
+               //console.log(x + "," + y);
+               //let x = updatedX;
+               coordinateArray.push({x,y});
+               x++;
+
+          }
+
+          if( coordinateArray.length < 4 ) break;
+          console.log(coordinateArray);
+
+          // get values from coordinate array
+          winCheckDiagonal = [];
+          coordinateArray.forEach(
+               coordinate => {
+                    //console.log(coordinate);
+                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
+                    const getYRowValue = getXColumnArray[coordinate.y];
+                    //console.log(getYRowValue);
+                    winCheckDiagonal.push(getYRowValue);
+                    console.log(winCheckDiagonal);
+
+                    let numZeros = winCheckDiagonal.filter(z => z === 0).length;
+                    if( numZeros < 3 ) {
+
+                         // Player 1 test
+                         const playerOnePieceTotal = winCheckDiagonal.filter(z => z === 1).length;
+                         if( playerOnePieceTotal > 3 ) {
+                              console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 1',
+                                         });
+                              }
+                         }
+
+                         // Player 2 test
+                         const playerTwoPieceTotal = winCheckDiagonal.filter(z => z === 2).length;
+                         if( playerTwoPieceTotal > 3 ) {
+                              console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
+                              if( this.checkFourInARow(winCheckDiagonal) ) {
+                                   this.setState({
+                                            winner: 'Player 2',
+                                         });
+                              }
+                         }
+
+                    }
+
+               }
+
+          );
+
+     }
+
+}
 
 
 
