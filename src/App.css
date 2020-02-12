@@ -54,24 +54,10 @@
 .board-single-container {
      display: inline-block;
      padding: 8px;
-     width: 42px;
-     height: 42px;
+     width: 50px;
+     height: 50px;
      margin: 0 1px;
      background: #ffff80;
-}
-
-.cell {
-     /* display: inline-block;
-     padding: 8px;
-     width: 42px;
-     height: 42px;
-     margin: 0 0.5px;
-     border-radius: 50%; */
-}
-
-.cell.empty {
-     /* background: #ffff80;
-     border-radius: 0; */
 }
 
 .icon-area.blank {
@@ -83,14 +69,8 @@
      background: red;
      display: inline-block;
      border-radius: 50%;
-     height: 46px;
-     width: 46px;
-     /*
-     padding: 8px;
-     width: 42px;
-     height: 42px;
-     margin: 0 0.5px;
-     border-radius: 50%; */
+     height: 50px;
+     width: 50px;
 }
 
 .cell.player-2 {
@@ -98,22 +78,16 @@
      background: black;
      display: inline-block;
      border-radius: 50%;
-     height: 46px;
-     width: 46px;
-     /*
-     padding: 8px;
-     width: 42px;
-     height: 42px;
-     margin: 0 0.5px;
-     border-radius: 50%; */
+     height: 50px;
+     width: 50px;
 }
 
 .icon-area {
-     margin-top: 5px;
+     margin-top: 8px;
 }
 
 button.play-button {
-     min-width: 59px;
+     min-width: 68px;
 }
 
 .board {
@@ -126,6 +100,10 @@ button.play-button {
 
 .game-board-area {
      text-align: center;
+}
+
+.game-meta-area {
+     margin-bottom: 30px;
 }
 
 .cell.animate {

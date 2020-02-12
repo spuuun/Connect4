@@ -5,8 +5,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 // import Paper from '@material-ui/core/Paper';
 // import Grid from '@material-ui/core/Grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAxeBattle } from '@fortawesome/pro-solid-svg-icons';
-import { faCircle } from '@fortawesome/pro-solid-svg-icons'
+//import {  } from '@fortawesome/pro-solid-svg-icons';
+import { faAxeBattle, faCircle, faChevronDown } from '@fortawesome/pro-solid-svg-icons'
 import { faDragon } from "@fortawesome/pro-duotone-svg-icons";
 //import { database } from "firebase"
 
@@ -27,7 +27,7 @@ class Board extends React.Component {
               player1: '',
               player2: '',
               turnNumber: 0,
-              winner: ''
+              winner: null
          };
 
      }
@@ -107,12 +107,27 @@ winCheck = (gameGrid) => {
      //console.log("winCheck");
      console.log(gameGrid);
 
+     let fullRows = [];
+
      // check rows
      gameGrid.forEach(
           row => {
                let rowArray = [];
+
                row.forEach( cell => rowArray.push(cell.value));
                let numZeros = rowArray.filter(z => z === 0).length;
+
+               // check if the row is full
+               if( numZeros === 0 ) { fullRows.push('full'); console.log( fullRows ); console.log( fullRows.length ); }
+               // check if the number of full rows = 6, if so, call it a draw
+               if(  fullRows.length === 6 ) {
+                    console.log("DRAW NO WINNER");
+                    this.setState({
+                        winner: { name: 'Draw', player: 'draw'},
+                      });
+               }
+
+
                if( numZeros < 4 ) {
 
                     // Player 1 test
@@ -120,7 +135,7 @@ winCheck = (gameGrid) => {
                     if( playerOnePieceTotal > 3 ) {
                          if( this.checkFourInARow(rowArray) ) {
                               this.setState({
-                                       winner: 'Player 1',
+                                       winner: { name: 'Dragons', player: 'player1'},
                                      });
                          }
                     }
@@ -130,7 +145,7 @@ winCheck = (gameGrid) => {
                     if( playerTwoPieceTotal > 3 ) {
                          if( this.checkFourInARow(rowArray) ) {
                               this.setState({
-                                       winner: 'Player 2',
+                                       winner: { name: 'Axes', player: 'player2'},
                                      });
                          }
                     }
@@ -185,7 +200,7 @@ submitForTesting = (array) => {
                //console.log("Player One Check (col): " + this.checkFourInARow(winCheckDiagonal));
                if( this.checkFourInARow(array) ) {
                     this.setState({
-                             winner: 'Player 1',
+                             winner: { name: 'Dragons', player: 'player1'},
                          });
                }
           }
@@ -196,7 +211,7 @@ submitForTesting = (array) => {
                //console.log("Player Two Check (col): " + this.checkFourInARow(winCheckDiagonal));
                if( this.checkFourInARow(array) ) {
                     this.setState({
-                             winner: 'Player 2',
+                             winner: { name: 'Axes', player: 'player2'},
                          });
                }
           }
@@ -468,24 +483,35 @@ render() {
 
      for (var i = 0; i <= 6; i++) {
           if( this.fullColumnCheck(i) && !this.state.winner )  {
-               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} onClick={(e) =>{ this.dropPiece(e)}} value={i} >&darr;</Button> );
+               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} onClick={(e) =>{ this.dropPiece(e)}} value={i} ><FontAwesomeIcon icon={faChevronDown} /></Button> );
           } else {
-               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} disabled>&darr;</Button> );
+               columnButtons.push( <Button id={"play-col-" + i} className="play-button" key={i} disabled><FontAwesomeIcon icon={faChevronDown} /></Button> );
           }
      }
 
      let winner = null;
+     let winnerBoardClass = ' winner-none';
      if( this.state.winner ) {
-          winner = <div className="announcement winner"><h3>WINNER: {this.state.winner}</h3></div>;
+          winner = <div className="announcement winner"><h3>WINNER: {this.state.winner.name}! 🎉🎉🎉</h3></div>;
+          winnerBoardClass = ' winner-' + this.state.winner.player;
+
+          // custom message for a draw
+          if( this.state.winner.player === 'draw' ) {
+               winner = <div className="announcement winner draw"><h3>This game was a draw.</h3></div>;
+               winnerBoardClass = ' winner-draw';
+          }
+
      }
 
     return (
       <div className="game-board-area">
           <h2>Connect4!</h2>
                {winner}
-          <div>Turn number: {this.state.turnNumber}</div>
-          <div>Who's turn? Player {this.whichPlayer(this.state.turnNumber)}</div>
-          <div className="board">
+          <div className="game-meta-area">
+               <div className="game-meta turn-number">Turn number: {this.state.turnNumber}</div>
+               <div className="game-meta whose-turn">Who's turn? Player {this.whichPlayer(this.state.turnNumber)}</div>
+          </div>
+          <div className={"board" + winnerBoardClass}>
           <div className="action-button-area">
           { !this.state.winner &&
                <ButtonGroup size="small" variant="contained" color="primary" aria-label="small contained primary button group">
@@ -510,7 +536,7 @@ render() {
                       }
 
                   return (
-                   <span className="board-single-container"><span key={shortid.generate()} className={"cell " + cellClass}>{cellContent}</span></span>
+                   <span key={shortid.generate()} className="board-single-container"><span key={shortid.generate()} className={"cell " + cellClass}>{cellContent}</span></span>
                   )
                  })}
             </div>
