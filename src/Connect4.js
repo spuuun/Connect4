@@ -4,6 +4,7 @@
 import React from 'react';
 import Navbar from './components/nav/Navbar'
 import ApplicationViews from './components/ApplicationViews'
+import {withFirebase} from './base'
 import './App.css';
 
 function App() {
@@ -16,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default withFirebase(App);

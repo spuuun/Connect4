@@ -34,6 +34,9 @@ class Register extends React.Component {
          console.log(this.props);
     }
 
+componentDidMount() {
+     console.log('registerDidMount -- firebase.auth(): ', firebase.auth())
+}
 
 handleInputChange = (event) => {
      this.setState({ [event.target.name]: event.target.value });

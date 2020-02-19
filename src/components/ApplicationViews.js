@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 import Register from './auth/RegistrationForm';
-import LandingAndLoginForm from './auth/LandingAndLoginForm';
+import LandingAndLoginFormBase from './auth/LandingAndLoginForm';
 import Board from './game/Board';
 import PasswordReset from './auth/PasswordReset'
 import AccountDetails from './auth/AccountDetails'
@@ -23,7 +23,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path='/register' render={(props) => {
                     return <Register />
                 }} />
-                <Route path='/login' component={LandingAndLoginForm} />
+                <Route path='/login' component={LandingAndLoginFormBase} />
                 <Route path='/password-reset' render={(props) => {
                     return <PasswordReset />
                 }} />
