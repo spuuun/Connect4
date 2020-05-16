@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withFirebase } from '../../base'
+import { withFirebase } from '../firebase/Firebase'
 import { withRouter } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'

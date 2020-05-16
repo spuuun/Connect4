@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import Firebase from '../firebase/Firebase'
 
 class Navbar extends Component {
     render() {
@@ -16,6 +17,9 @@ class Navbar extends Component {
                             <li><Link to='/account-details'>Your Profile</Link></li>
                         <li><Link to='/board'>game board</Link></li>
                         <li><Link to='/register'>Register New Account</Link></li>
+                        <li><button  onClick={Firebase.doSignOut}>Sign Out</button>
+                            </li>
+
                     </ul>
                 </nav>
             </header>
@@ -26,7 +30,3 @@ class Navbar extends Component {
 }
 
 export default Navbar
-
-
-// simple nav --- however we decide to do it
-// links to "past games", "stats", "current games", and w/e...

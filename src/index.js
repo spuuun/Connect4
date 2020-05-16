@@ -4,13 +4,14 @@ import './index.css';
 import App from './Connect4';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
-import {firebaseApp, FirebaseContext} from './base'
+import { FirebaseContext } from './components/firebase/Firebase'
+import Firebase from './components/firebase/Firebase';
 
 // TODO
 // initalize firebase here and create a new context with authenticated user for the whole application to consume
 
 ReactDOM.render(
-    <FirebaseContext.Provider value={firebaseApp}>
+    <FirebaseContext.Provider value={new Firebase}>
         <Router>
             <App />
         </Router>

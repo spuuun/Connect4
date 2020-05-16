@@ -4,7 +4,7 @@
 import React from 'react';
 import Navbar from './components/nav/Navbar'
 import ApplicationViews from './components/ApplicationViews'
-import {withFirebase} from './base'
+import {withFirebase} from './components/firebase/Firebase'
 import './App.css';
 
 function App() {

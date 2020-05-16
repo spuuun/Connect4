@@ -4,11 +4,10 @@
     //  1. registration form --- creates new user in firebase storage; redirects to home page
 
 import React from 'react';
-import firebase from 'firebase';
 import { makeStyles } from '@material-ui/core/styles';
-import { firebaseApp } from '../../base';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import {withFirebase, FirebaseContext } from '../firebase/Firebase'
+import Firebase from '../firebase/Firebase'
+import { TextField, Button } from '@material-ui/core/';
 
 const useStyles = makeStyles(theme => ({
  root: {
@@ -35,7 +34,7 @@ class Register extends React.Component {
     }
 
 componentDidMount() {
-     console.log('registerDidMount -- firebase.auth(): ', firebase.auth())
+     console.log('registerDidMount -- firebase.auth(): ', Firebase)
 }
 
 handleInputChange = (event) => {
@@ -43,56 +42,44 @@ handleInputChange = (event) => {
      //console.log(event.target.value);
 };
 
-handleEmailSubmit = (event) => {
+handleEmailSubmit = event => {
      event.preventDefault();
-     console.log('Registration submitted');
-     const { email, password } = this.state;
-     console.log(this.state);
-firebaseApp
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-         // add new user to App-->state and Firebase
-         //this.props.registerNewUser(user);
-         console.log(user)
-    })
-    .catch((error) => {
+
+     Firebase.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+          .then(this.authHandler())
+     .catch((error) => {
       this.setState({ error: error });
     });
 };
 
-
-
 authHandler = async (authData) => {
      console.log(authData);
+     // post new user to FB DB here
 };
 
 
-authenticateGithub = () => {
-     console.log("Authenticate with Github");
-     const authProviderGithub = new firebase.auth.GithubAuthProvider();
-     firebaseApp
-          .auth()
-          .signInWithPopup(authProviderGithub)
-          .then(this.authHandler);
-};
+// authenticateGithub = () => {
+//      console.log("Authenticate with Github");
+//      const authProviderGithub = new firebase.auth.GithubAuthProvider();
+//      firebaseApp
+//           .auth()
+//           .signInWithPopup(authProviderGithub)
+//           .then(this.authHandler);
+// };
 
 
-authenticateGoogle = () => {
-     console.log("Authenticate with Google");
-     const authProviderGoogle = new firebase.auth.GoogleAuthProvider();
-     firebaseApp
-          .auth()
-          .signInWithPopup(authProviderGoogle)
-          .then(this.authHandler);
-};
-
-
+// authenticateGoogle = () => {
+//      console.log("Authenticate with Google");
+//      const authProviderGoogle = new firebase.auth.GoogleAuthProvider();
+//      firebaseApp
+//           .auth()
+//           .signInWithPopup(authProviderGoogle)
+//           .then(this.authHandler);
+// };
 
     render() {
 
          const { email, password, error } = this.state;
-         //console.log(this.props.registerNewUser);
 
          return (
               <div className="login-form-area">
@@ -101,12 +88,12 @@ authenticateGoogle = () => {
                     <div>{error.message}</div>
               ) : null}
 
-              <div><Button variant="contained" color="primary" type="submit" onClick={this.authenticateGoogle}>Login with your Google Account</Button></div>
-              <div><Button variant="contained" color="primary" type="submit" onClick={this.authenticateGithub}>Login with your Github Account</Button></div>
+              <div><Button variant="contained" color="primary" type="submit" onClick={Firebase.authenticateGoogle}>Login with your Google Account</Button></div>
+              <div><Button variant="contained" color="primary" type="submit" onClick={Firebase.authenticateGithub}>Login with your Github Account</Button></div>
 
 
               <p>... or enter your email and password below to register:</p>
-              <form id="registration-form" onSubmit={this.handleEmailSubmit}>
+              <form id="registration-form" onSubmit={Firebase.doCreateUserWithEmailAndPassword}>
                    <div className="registration-area">
                         <TextField
                             id="login-form-email"
@@ -156,4 +143,4 @@ authenticateGoogle = () => {
 
 }
 
-export default Register;
+export default withFirebase(Register);
