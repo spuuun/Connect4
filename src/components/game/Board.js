@@ -1,4 +1,5 @@
 import React from 'react';
+import Timer from '../timer/Timer'
 //import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -13,10 +14,6 @@ import { faDragon } from "@fortawesome/pro-duotone-svg-icons";
 const shortid = require('shortid');
 
 // actual game board --- contains 2d array comprising the "board", game logic, game pieces, etc.
-
-
-
-
 
 class Board extends React.Component {
 
@@ -543,7 +540,7 @@ render() {
            )
           })}
           </div>
-
+          <Timer/>
       </div>
      );
 
