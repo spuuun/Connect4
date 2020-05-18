@@ -1,4 +1,5 @@
 import React from 'react';
+import DM from '../../modules/DataManager'
 import Button from '@material-ui/core/Button';
 
 // could be as simple as a button that creates a new instance of a game in Firebase,
@@ -7,22 +8,23 @@ import Button from '@material-ui/core/Button';
 // only made it a separate component in case we want to add a "search for other players" feature or something
 // maybe put any future chat component here
 
-function Home(props) {
+function CreateNewGame(props) {
 
-  console.log('PROPS OBJ in HOME component: ', props)
+  const newGame = {
+    datetimeCreated: 0,
+    player1: 'loggedInUser OR Guest',
+    player2: null,
+    winner: null,
+    numTurns: 0
+  }
 
   return (
     <>
-      <h1>CONNECT 4!</h1>
-
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={() => DM.createNewGame(newGame)}>
         Start A New Game
       </Button>
-
-      {/* INCLUDE ACTIVE GAMES COMPONENT HERE */}
-
     </>
   )
 }
 
-export default Home;
+export default CreateNewGame;

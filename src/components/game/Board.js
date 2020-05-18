@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import {  } from '@fortawesome/pro-solid-svg-icons';
 import { faAxeBattle, faCircle, faChevronDown } from '@fortawesome/pro-solid-svg-icons'
 import { faDragon } from "@fortawesome/pro-duotone-svg-icons";
+import CreateNewGame from '../home/CreateNew';
+import DM from '../../modules/DataManager'
 //import { database } from "firebase"
 
 const shortid = require('shortid');
@@ -30,7 +32,8 @@ class Board extends React.Component {
      }
 
 componentDidMount(){
-
+     const openGames = DM.getOpenGames();
+     console.log('OPEN GAMES', openGames)
      console.log('Board mounted');
 
      const gameGrid = [
@@ -72,7 +75,6 @@ fullColumnCheck = (columnIndex) => {
      return columnPlayable;
 }
 
-
 dropPiece = (e) => {
      e.preventDefault();
      const gameGrid = this.state.gameGrid;
@@ -94,10 +96,7 @@ dropPiece = (e) => {
 
      // run winCheck here
      this.winCheck(this.state.gameGrid);
-
 }
-
-
 
 winCheck = (gameGrid) => {
 
@@ -123,7 +122,6 @@ winCheck = (gameGrid) => {
                         winner: { name: 'Draw', player: 'draw'},
                       });
                }
-
 
                if( numZeros < 4 ) {
 
@@ -157,7 +155,6 @@ winCheck = (gameGrid) => {
           this.submitForTesting(column);
      }
 
-
      // check Diagonals by converting each possible diagonal into an array
      this.transformDiagonalPhase1();
      this.transformDiagonalPhase2();
@@ -165,10 +162,7 @@ winCheck = (gameGrid) => {
      this.transformDiagonalPhase4();
      this.transformDiagonalPhase5();
      this.transformDiagonalPhase6();
-
-
 }
-
 
 checkFourInARow = (array) => {
     var count = 0,
@@ -182,9 +176,6 @@ checkFourInARow = (array) => {
         return ++count === 4;
     });
 }
-
-
-
 
 submitForTesting = (array) => {
 
@@ -214,11 +205,7 @@ submitForTesting = (array) => {
           }
 
      } else { return; }
-
 }
-
-
-
 
 // Checks 4 diagonals, from 0,5 to 3,5
 // Y-0    0 0 0 0 0 / /
@@ -257,11 +244,6 @@ transformDiagonalPhase1 = () => {
           );
      }
 }
-
-
-
-
-
 
 // Checks 1 diagonal, from 0,4 to 4,0
 // Y-0    0 0 0 0 / 0 0
@@ -302,9 +284,6 @@ transformDiagonalPhase2 = () => {
      }
 }
 
-
-
-
 // Checks 1 diagonal, from 0,3 to 3,0
 // Y-0    0 0 0 / 0 0 0
 // Y-1    0 0 / 0 0 0 0
@@ -343,7 +322,6 @@ transformDiagonalPhase3 = () => {
           );
      }
 }
-
 
 // Checks 4 diagonals, from 0,0 to 6,3
 // Y-0    \ \ \ \ 0 0 0
@@ -384,9 +362,6 @@ transformDiagonalPhase4 = () => {
      }
 }
 
-
-
-
 // Checks 1 diagonal, from 0,1 to 4,0
 // Y-0    0 0 0 0 0 0 0
 // Y-1    \ 0 0 0 0 0 0
@@ -425,9 +400,6 @@ transformDiagonalPhase5 = () => {
           );
      }
 }
-
-
-
 
 // Checks 1 diagonal, from 0,2 to 3,0
 // Y-0    0 0 0 0 0 0 0
@@ -470,8 +442,6 @@ transformDiagonalPhase6 = () => {
      }
 }
 
-
-
 render() {
 
      //const turnNumber = this.state.turnNumber - 1;
@@ -497,11 +467,11 @@ render() {
                winner = <div className="announcement winner draw"><h3>This game was a draw.</h3></div>;
                winnerBoardClass = ' winner-draw';
           }
-
      }
 
     return (
       <div className="game-board-area">
+           <CreateNewGame/>
           <h2>Connect4!</h2>
                {winner}
           <div className="game-meta-area">
@@ -516,6 +486,7 @@ render() {
                </ButtonGroup>
           }
           </div>
+          
           {gameGrid.map((row, index) => {
            return (
             <div key={index} className={"board-row row-"+ index}>
