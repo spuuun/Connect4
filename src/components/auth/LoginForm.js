@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
+import Link from 'react-router-dom'
+import {Button} from '@material-ui/core'
 
 class LandingAndLoginForm extends Component {
 
+
+
     render() {
+    // login with google
+    // login with github
+    // login with email/password
+
+    // no accout? --- register new OR continue as guest
+    // forgot password?
         return (
             <>
-                <h1>hi</h1>
-                <p>
-                    this is the LandingAndLogin compnent
-                </p>
+                <h1>Login to Your Account</h1>
+
+
+                <Button 
+                    onClick={doLogin}
+                />
+                <Link to='/register'/>
             </>
         )
     }

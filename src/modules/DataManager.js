@@ -3,7 +3,6 @@ const remoteURL = firebaseApp.databaseURL
 
 export default {
   async getOpenGames() {
-    
     const r = await fetch(`https://connect4-4a167.firebaseio.com/games.json`)
     const data = await r.body.getReader()
     // console.log("value after getreader", data)
