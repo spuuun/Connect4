@@ -32,9 +32,9 @@ class Board extends React.Component {
      }
 
 componentDidMount(){
-     const openGames = DM.getOpenGames();
-     console.log('OPEN GAMES', openGames)
-     console.log('Board mounted');
+     // const openGames = DM.getOpenGames();
+     // console.log('OPEN GAMES', openGames)
+     // console.log('Board mounted');
 
      const gameGrid = [
          [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
@@ -471,7 +471,6 @@ render() {
 
     return (
       <div className="game-board-area">
-           <CreateNewGame/>
           <h2>Connect4!</h2>
                {winner}
           <div className="game-meta-area">

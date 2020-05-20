@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom'
+// import Link from 'react-router-dom'
 import {Button} from '@material-ui/core'
 
 class LandingAndLoginForm extends Component {
@@ -19,9 +19,9 @@ class LandingAndLoginForm extends Component {
 
 
                 <Button 
-                    onClick={doLogin}
+                    // onClick={doLogin}
                 />
-                <Link to='/register'/>
+                {/* <Link to='/register'/> */}
             </>
         )
     }

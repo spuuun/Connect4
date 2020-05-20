@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 import Register from './auth/RegistrationForm';
-import LandingAndLoginForm from './auth/LandingAndLoginForm';
+import LoginForm from './auth/LoginForm';
 import Board from './game/Board';
+import OpenGameList from './home/OpenGameList';
 // import Home from './home/CreateNew'
-// import LandingAndLoginForm from './auth/LandingAndLoginForm';
 
 export default class ApplicationViews extends Component {
     render() {
@@ -21,10 +21,13 @@ export default class ApplicationViews extends Component {
                 <Route exact path='/register' render={(props) => {
                     return <Register />
                 }} />
+                
+                {/* for testing purposes */}
                 {/* <Route exact path='/home' render={(props) => {
                     return <Home />
-                }} /> */}
-                <Route path="/login" component={LandingAndLoginForm} />
+                }} />  */}
+                <Route path="/login" component={LoginForm} />
+                <Route path="/opengames" component={OpenGameList} />
             </>
         )
     }

@@ -13,7 +13,7 @@ function CreateNewGame(props) {
   const newGame = {
     datetimeCreated: 0,
     player1: 'loggedInUser OR Guest',
-    player2: null,
+    player2: '',
     winner: null,
     numTurns: 0
   }
