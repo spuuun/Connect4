@@ -19,6 +19,16 @@ export default {
       body: JSON.stringify(newGame)
     })
     return await r.json()
+  },
+  async addPlayerToOpenGame(gameId, player) {
+    const r = await fetch(`https://connect4-4a167.firebaseio.com/games/${gameId}.json` ,{
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({'player2': player})
+    })
+    return 
   }
 }
 
