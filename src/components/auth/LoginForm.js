@@ -4,8 +4,6 @@ import {Button} from '@material-ui/core'
 
 class LandingAndLoginForm extends Component {
 
-
-
     render() {
     // login with google
     // login with github

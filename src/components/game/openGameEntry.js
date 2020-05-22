@@ -11,8 +11,6 @@ function joinGame(gameId) {
 function OpenGameEntry(props) {
   console.log("game entry", props)
 
-
-
   return (
     <>
       <p>

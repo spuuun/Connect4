@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import {  } from '@fortawesome/pro-solid-svg-icons';
 import { faAxeBattle, faCircle, faChevronDown } from '@fortawesome/pro-solid-svg-icons'
 import { faDragon } from "@fortawesome/pro-duotone-svg-icons";
-import CreateNewGame from '../home/CreateNew';
 import DM from '../../modules/DataManager'
 //import { database } from "firebase"
 

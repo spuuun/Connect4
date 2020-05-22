@@ -1,6 +1,6 @@
 import base,{ firebaseApp } from '../../base'
 import React, { Component } from 'react'
-import CreateNewGame from '../home/CreateNew'
+import CreateNewGame from './CreateNewGame'
 import OpenGameEntry from '../game/openGameEntry'
 import DM from '../../modules/DataManager'
 import {Button} from '@material-ui/core'
@@ -41,12 +41,9 @@ state = {
 
     return (
       <>
-      {/* for testing purposes: */}
-      <CreateNewGame/>
-
-      <div>
-        openGames
-      </div>
+      <h2>
+        Open Games
+      </h2>
       {this.state.openGames.map(g => 
           OpenGameEntry(g)
         )}
