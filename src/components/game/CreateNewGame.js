@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 function CreateNewGame(props) {
 
   const newGame = {
-    datetimeCreated: Date.now,
+    datetimeCreated: Date.now(),
     player1: 'loggedInUser OR Guest',
     player2: '',
     winner: null,

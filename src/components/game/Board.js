@@ -62,7 +62,6 @@ whichPlayer = numTurns => {
     }
 }
 
-
 fullColumnCheck = (columnIndex) => {
      // use map to get an array of a single column
      const columnPieces = this.state.gameGrid.map(function(value,index) { return value[columnIndex].value; });
