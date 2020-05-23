@@ -1,30 +1,40 @@
 import React, { Component } from 'react'
 // import Link from 'react-router-dom'
-import {Button} from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 
-class LandingAndLoginForm extends Component {
+function Login(props) {
 
-    render() {
-    // login with google
-    // login with github
-    // login with email/password
-
-    // no accout? --- register new OR continue as guest
-    // forgot password?
-        return (
-            <>
-                <h1>Login to Your Account</h1>
-
-
-                <Button 
-                    // onClick={doLogin}
-                />
-                {/* <Link to='/register'/> */}
-            </>
-        )
+    function handleChange() {
+        // handle textfield input change
     }
+
+    return (
+        // login with google
+        // login with github
+        // login with email/password
+
+        // no accout? --- register new OR continue as guest
+        // forgot password?
+        <>
+            <h1>Log in w/Email</h1>
+            <form className={classes.root} noValidate>
+                <TextField>
+
+                </TextField>
+                <TextField>
+
+                </TextField>
+                <Button
+                // onClick={doLogin}
+                />
+            </form>
+
+            {/* <Link to='/register'/> */}
+        </>
+    )
 }
-export default LandingAndLoginForm
+
+export default Login
 
     // this is where non-logged-in users (and users not saved in local/session storage) will be directed
 
