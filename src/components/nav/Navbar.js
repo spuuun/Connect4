@@ -10,11 +10,15 @@ class Navbar extends Component {
                 </h1>
                 <nav>
                     <ul>
-                        {/* TODO: create <Games/> component that renders CreateNew  & OpenGameList
-                        something like:
-                            <li><Link to='/games'>Play!</Link></li> */}
+                        {/* for testing */}
                         <li><Link to='/board'>game board</Link></li>
+
+
+                        {/* if user is 'continuing as guest': */}
+                        <li><Link to='/login'>Login</Link></li>
                         <li><Link to='/register'>Register New Account</Link></li>
+                        {/* else
+                        <li><Link to='profile'>Your Profile</Link></li> */}
                     </ul>
                 </nav>
             </header>
@@ -25,7 +29,3 @@ class Navbar extends Component {
 }
 
 export default Navbar
-
-
-// simple nav --- however we decide to do it
-// links to "past games", "stats", "current games", and w/e...
