@@ -42,7 +42,7 @@ class Register extends React.Component {
           event.preventDefault();
           console.log('Registration submitted');
           const { email, password } = this.state;
-          console.log(this.state);
+          console.log("state upon register with email", this.state);
 
           // convert this to async/await
           firebaseApp
@@ -51,7 +51,7 @@ class Register extends React.Component {
                .then((user) => {
                     // add new user to App-->state and Firebase
                     //     this.props.registerNewUser(user);
-                    console.log(user)
+                    console.log("user OBJ response from firebase app", user)
                })
                .catch((error) => {
                     this.setState({ error: error });
@@ -80,6 +80,14 @@ class Register extends React.Component {
                .signInWithPopup(authProviderGoogle)
                .then(authUser => this.authHandler(authUser));
      };
+
+     doSignOut = async() => {
+          await firebase.auth().signOut().then(function() {
+               console.log("Sign-out successful")
+             }).catch(function(error) {
+               // An error happened.
+             });
+     }
 
      render() {
           const { email, password, error } = this.state;
@@ -140,6 +148,8 @@ class Register extends React.Component {
                          </div>
                          <Button variant="contained" color="secondary" type="submit">Register Now</Button>
                     </form>
+                         <Button variant="contained" color="primary" onClick={() => this.doSignOut()}>Sign Out</Button>
+
                </div>
           );
 
