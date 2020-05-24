@@ -129,7 +129,7 @@ function Login(props) {
                 <Typography component='h4' variant='h6'>Don't have and account? <Link to='/register'>Register here</Link></Typography>
 
                 <Typography component='h4' variant='h6'>Or</Typography>
-                <Button onClick={() => continueAsGuest()}>Continue as Guest</Button>
+                <Button color='primary' onClick={() => continueAsGuest()}>Continue as Guest</Button>
                 </form>
             </Container>
         </>
