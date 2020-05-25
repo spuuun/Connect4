@@ -13,28 +13,33 @@ function Login(props) {
     const [loginPassword, setLoginPassword] = useState('');
     const [remember, setRemember] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState({
+        isEmailError: false,
+        isPasswordError: false,
+        errorMessage: ''
+    })
 
     function handleEmailChange(e) {
-        console.log(e.target.value)
+        console.log('handle email change', e.target.value)
         setLoginEmail(e.target.value)
     }
     function handlePasswordChange(e) {
-        console.log(e.target.value)
+        console.log('handle pwd change', e.target.value)
         setLoginPassword(e.target.value)
     }
     function handleRememberChange(e) {
-        console.log(e.target.value)
+        console.log('handle remember change', e.target.value)
         setRemember(!remember)
     }
 
-    function validate(values) {
-        let errors = {};
-        if (!values.email) {
-            errors.email = 'a valid email address is required'
-        }
+    // function validate(values) {
+    //     let errors = {};
+    //     if (!values.email) {
+    //         errors.email = 'a valid email address is required'
+    //     }
 
-        return errors
-    }
+    //     return errors
+    // }
 
     function authHandler(user) {
         sessionStorage.setItem(
@@ -65,25 +70,48 @@ function Login(props) {
         props.history.push('/')
     }
 
-    async function doLoginWithEmail(email, password) {
+    function doLoginWithEmail(email, password) {
         setIsLoading(true)
-        const userLoginResponse = await firebaseApp.auth().signInWithEmailAndPassword(email, password)
-            .catch(function (error) {
+        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            .then(r => {
+                console.log('SIGNIN SUCCESS. RETURN VAL', r)
+                authHandler(r.user)
+                return r
+            })
+            .catch(function (err) {
                 setIsLoading(false)
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("ERROR ON LOGIN", error)
-                // ...
-            });
-        console.log('LOGIN RESPONSE OBJ', userLoginResponse.user);
-        authHandler(userLoginResponse.user)
+                const errorCode = err.code;
 
-        // attempt firebase login with email
-        // change error state if email and/or password are:
-        //   incorrect,
-        //   account doesn't exist, 
-        //   account exists with different auth provider
+                // if (errorCode === 'auth/invalid-email') {
+                //     setLoginEmail('');
+                //     setLoginPassword('');
+                //     setRemember(false);
+                //     setError({ isEmailError: true, errorMessage: 'please enter a valid email address' })
+                // }
+                // if (errorCode === 'auth/user-disabled') {
+                //     setLoginEmail('');
+                //     setLoginPassword('');
+                //     setRemember(false);
+                //     setError({ isEmailError: true, errorMessage: 'this account has been disabled' })
+                // }
+                if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+                    setLoginEmail('');
+                    setLoginPassword('');
+                    setRemember(false);
+                    setError({
+                        isEmailError: true,
+                        isPasswordError: true,
+                        errorMessage: 'email &/or password are incorrect or not found --- please re-enter both. if error continues, try resetting your password or creating a new account with your email'
+                    })
+                }
+                else {
+                    console.log('unhandled error, ERROR VAL', error)
+                }
+                //   account exists with different auth provider ?????
+                return err
+            }
+            );
+
     }
 
     // MAYBE IMPORT THESE FROM REGISTER COMPONENT
@@ -104,7 +132,23 @@ function Login(props) {
         authHandler(authUser.user);
     }
 
+    function CreateUUID() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16).split("-", 1)
+        )
+    }
+
     function continueAsGuest() {
+        const user = {
+            uid: `Guest-${CreateUUID}`,
+            displayName: `Guest-${CreateUUID()}`
+        }
+        // authHandler(user)
+        
+        sessionStorage.setItem("guestUser", user)
+        props.history.push('/')
+
+
         // create random guestUserName
         // username = 'Guest' + new random GUID
         // find external API for this (l8r)
@@ -118,7 +162,8 @@ function Login(props) {
             <Container component="main" maxWidth="xs">
                 <div id='email-login-container' className='login-option email-login'>
                     <Typography component='h1' variant='h5'>Log in w/Email</Typography>
-                    <form className='login-form' noValidate>
+                    <form className='login-form'>
+                        {(error.isEmailError || error.isPasswordError) && <Typography id='login-error-message'>{error.errorMessage}</Typography>}
                         <TextField
                             variant='outlined'
                             margin='normal'
@@ -131,6 +176,7 @@ function Login(props) {
                             autoComplete='email'
                             onChange={e => handleEmailChange(e)}
                             type='email'
+                            error={error.isEmailError}
                         />
                         <TextField
                             variant='outlined'
@@ -143,6 +189,7 @@ function Login(props) {
                             value={loginPassword || ''}
                             onChange={e => handlePasswordChange(e)}
                             type='password'
+                            error={error.isPasswordError}
                         />
                         <Button
                             type='submit'

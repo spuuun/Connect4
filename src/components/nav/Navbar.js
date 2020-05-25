@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import SignOutButton from '../auth/SignOutButton'
 
 class Navbar extends Component {
     render() {
@@ -17,6 +18,7 @@ class Navbar extends Component {
                         {/* if user is 'continuing as guest': */}
                         <li><Link to='/login'>Login</Link></li>
                         <li><Link to='/register'>Register New Account</Link></li>
+                        <li><SignOutButton/></li>
                         {/* else
                         <li><Link to='profile'>Your Profile</Link></li> */}
                     </ul>

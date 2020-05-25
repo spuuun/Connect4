@@ -59,7 +59,7 @@ class Register extends React.Component {
      };
 
      authHandler = async (authData) => {
-          
+
           console.log(authData);
      };
 
@@ -80,14 +80,6 @@ class Register extends React.Component {
                .signInWithPopup(authProviderGoogle)
                .then(authUser => this.authHandler(authUser));
      };
-
-     doSignOut = async() => {
-          await firebase.auth().signOut().then(function() {
-               console.log("Sign-out successful")
-             }).catch(function(error) {
-               // An error happened.
-             });
-     }
 
      render() {
           const { email, password, error } = this.state;
@@ -147,8 +139,6 @@ class Register extends React.Component {
                          </div>
                          <Button variant="contained" color="secondary" type="submit">Register Now</Button>
                     </form>
-                         <Button variant="contained" color="primary" onClick={() => this.doSignOut()}>Sign Out</Button>
-
                </div>
           );
 

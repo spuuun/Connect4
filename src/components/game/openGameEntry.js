@@ -13,19 +13,18 @@ function OpenGameEntry(props) {
 
   return (
     <>
-      <p>
+      <div>
         <div>
           {props.player1}
+          <span>  ...............  </span>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => joinGame(props.key, 'newPlayer')}>
+            Join Game
+          </Button>
         </div>
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => joinGame(props.key, 'newPlayer')}
-        >
-        Join Game 
-    </Button>
-    </p>
+      </div>
     </>
   )
 }
