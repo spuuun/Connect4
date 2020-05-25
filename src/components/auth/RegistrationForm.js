@@ -59,8 +59,8 @@ class Register extends React.Component {
      };
 
      authHandler = async (authData) => {
+          
           console.log(authData);
-
      };
 
      authenticateGithub = () => {
@@ -91,7 +91,6 @@ class Register extends React.Component {
 
      render() {
           const { email, password, error } = this.state;
-          //console.log(this.props.registerNewUser);
 
           return (
                <div className="login-form-area">
