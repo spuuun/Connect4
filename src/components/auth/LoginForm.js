@@ -62,7 +62,6 @@ function Login(props) {
                 uid: user.uid,
             })
         )
-
         props.history.push('/')
     }
 
@@ -106,65 +105,72 @@ function Login(props) {
     }
 
     function continueAsGuest() {
-        // create random guestUserName --- look for external API for this
+        // create random guestUserName
+        // username = 'Guest' + new random GUID
+        // find external API for this (l8r)
+
         // store guest user credentials in local and session storage
         // redirect to home page
     }
 
     return (
-        // login with google
-        // login with github
-
-        // no accout? --- register new OR continue as guest
-        // forgot password?
         <>
             <Container component="main" maxWidth="xs">
-                <Typography component='h1' variant='h5'>Log in w/Email</Typography>
-                <form className='login-form' noValidate>
-                    <TextField
-                        variant='outlined'
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='login-email'
-                        label='email'
-                        name='email'
-                        value={loginEmail || ''}
-                        autoComplete='email'
-                        onChange={e => handleEmailChange(e)}
-                        type='email'
-                    />
-                    <TextField
-                        variant='outlined'
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='login-password'
-                        label='password'
-                        name='password'
-                        value={loginPassword || ''}
-                        onChange={e => handlePasswordChange(e)}
-                        type='password'
-                    />
-                    <Button
-                        type='submit'
-                        fullWidth
-                        variant='contained'
-                        color='primary'
-                        onClick={() => doLoginWithEmail(loginEmail, loginPassword)}
-                        disabled={isLoading}
-                    >
-                        Login
+                <div id='email-login-container' className='login-option email-login'>
+                    <Typography component='h1' variant='h5'>Log in w/Email</Typography>
+                    <form className='login-form' noValidate>
+                        <TextField
+                            variant='outlined'
+                            margin='normal'
+                            required
+                            fullWidth
+                            id='login-email'
+                            label='email'
+                            name='email'
+                            value={loginEmail || ''}
+                            autoComplete='email'
+                            onChange={e => handleEmailChange(e)}
+                            type='email'
+                        />
+                        <TextField
+                            variant='outlined'
+                            margin='normal'
+                            required
+                            fullWidth
+                            id='login-password'
+                            label='password'
+                            name='password'
+                            value={loginPassword || ''}
+                            onChange={e => handlePasswordChange(e)}
+                            type='password'
+                        />
+                        <Button
+                            type='submit'
+                            fullWidth
+                            variant='contained'
+                            color='primary'
+                            onClick={() => doLoginWithEmail(loginEmail, loginPassword)}
+                            disabled={isLoading}
+                        >
+                            Login
                     </Button>
-                    <FormControlLabel
-                        control={<Checkbox value={remember} onChange={(e) => handleRememberChange(e)} color='primary' />}
-                        label='Remember Me'
-                    />
-                    <Typography component='h4' variant='h6'><Link to='/reset-password'>Forgot Password?</Link></Typography>
+                        <FormControlLabel
+                            control={<Checkbox value={remember} onChange={(e) => handleRememberChange(e)} color='primary' />}
+                            label='Remember Me'
+                        />
+                        <Typography id='forgot-password-link' component='h4' variant='h6'><Link to='/reset-password'>Forgot Password?</Link></Typography>
 
-                    <Typography component='h4' variant='h6'>Don't have and account? <Link to='/register'>Register here</Link></Typography>
+                        <Typography id='register-new-account-link' component='h4' variant='h6'>Don't have and account? <Link to='/register'>Register here</Link></Typography>
 
-                    <Typography component='h4' variant='h6'>Or</Typography>
+                    </form>
+                </div>
+                <hr />
+                <div id='external-login-container' className='login-option external-login'>
+                    <div><Button variant="contained" color="primary" type="submit" onClick={authenticateWithGoogle}>Login with your Google Account</Button></div>
+                    <div><Button variant="contained" color="primary" type="submit" onClick={authenticateWithGitHub}>Login with your Github Account</Button></div>
+                </div>
+                <hr />
+                <div id='external-login-container' className='login-option external-login'>
                     <Button
                         type='button'
                         fullWidth
@@ -174,11 +180,7 @@ function Login(props) {
                     >
                         Continue as Guest
                     </Button>
-                </form>
-            </Container>
-            <Container>
-                <div><Button variant="contained" color="primary" type="submit" onClick={authenticateWithGoogle}>Login with your Google Account</Button></div>
-                <div><Button variant="contained" color="primary" type="submit" onClick={authenticateWithGitHub}>Login with your Github Account</Button></div>
+                </div>
             </Container>
         </>
     )

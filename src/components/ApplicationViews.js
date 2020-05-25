@@ -11,8 +11,6 @@ export default class ApplicationViews extends Component {
     render() {
         return (
             <>
-                {/* For the '/' path:
-                    we'll want to replace board with <Home /> component or something later - once we have it */}
                 <Route exact path="/" render={(props) => {
                     return <Home />
                 }} />
@@ -23,7 +21,6 @@ export default class ApplicationViews extends Component {
                     return <Register />
                 }} />
                 <Route path="/login" component={LoginForm} />
-                <Route path="/opengames" component={OpenGameList} />
             </>
         )
     }
