@@ -38,11 +38,6 @@
   }
 }
 
-
-
-
-
-
 /* ---- CLB CSS ------ */
 
 .board-row {
@@ -194,9 +189,6 @@ button.play-button {
    64%  { transform: translateY(0) rotateZ(200deg); }
    100% { transform: translateY(0) rotateZ(360deg); }
 }
-
-
-
 
 .announcement.winner {
      display: inline-block;

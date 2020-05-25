@@ -1,6 +1,6 @@
 import base,{ firebaseApp } from '../../base'
 import React, { Component } from 'react'
-import CreateNewGame from '../home/CreateNew'
+import CreateNewGame from './CreateNewGame'
 import OpenGameEntry from '../game/openGameEntry'
 import DM from '../../modules/DataManager'
 import {Button} from '@material-ui/core'
@@ -41,15 +41,10 @@ state = {
 
     return (
       <>
-      {/* for testing purposes: */}
-      <CreateNewGame/>
-
-      <div>
-        openGames
-      </div>
-      {this.state.openGames.map(g => 
-          OpenGameEntry(g)
-        )}
+      <h2>
+        Open Games
+      </h2>
+      {this.state.openGames.map(g => OpenGameEntry(g))}
       </>
     )
   }
@@ -81,8 +76,3 @@ state = {
 //     </>
 //   )
 // }
-
-
-// a list of open (aka pending) games --- ones waiting on a second player to join
-// i'm envisioning a simple list of pending games, with the username of the game creator and an affordance to join on each
-// to be rendered somewhere on the Home page

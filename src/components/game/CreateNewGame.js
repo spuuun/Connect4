@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 function CreateNewGame(props) {
 
   const newGame = {
-    datetimeCreated: 0,
+    datetimeCreated: Date.now(),
     player1: 'loggedInUser OR Guest',
     player2: '',
     winner: null,
@@ -20,7 +20,10 @@ function CreateNewGame(props) {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={() => DM.createNewGame(newGame)}>
+      <Button variant="contained" color="primary" onClick={() => {
+        console.log("NEW GAME OBJ", newGame)
+        DM.createNewGame(newGame)
+        }}>
         Start A New Game
       </Button>
     </>

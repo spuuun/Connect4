@@ -3,17 +3,16 @@ import { Route, Redirect, withRouter } from 'react-router-dom'
 import Register from './auth/RegistrationForm';
 import LoginForm from './auth/LoginForm';
 import Board from './game/Board';
-import OpenGameList from './home/OpenGameList';
-// import Home from './home/CreateNew'
+import OpenGameList from './game/OpenGameList'
+import { faHome } from '@fortawesome/pro-solid-svg-icons';
+import Home from './home/Home'
 
 export default class ApplicationViews extends Component {
     render() {
         return (
             <>
-                {/* For the '/' path:
-                    we'll want to replace board with <Home /> component or something later - once we have it */}
                 <Route exact path="/" render={(props) => {
-                    return <Board />
+                    return <Home />
                 }} />
                 <Route path='/board' render={(props) => {
                     return <Board/>
@@ -21,13 +20,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path='/register' render={(props) => {
                     return <Register />
                 }} />
-                
-                {/* for testing purposes */}
-                {/* <Route exact path='/home' render={(props) => {
-                    return <Home />
-                }} />  */}
                 <Route path="/login" component={LoginForm} />
-                <Route path="/opengames" component={OpenGameList} />
             </>
         )
     }

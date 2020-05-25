@@ -2,7 +2,7 @@ import firebaseApp from '../base'
 const remoteURL = firebaseApp.databaseURL
 
 export default {
-  async getOpenGames() {
+async getOpenGames() {
     const r = await fetch(`https://connect4-4a167.firebaseio.com/games.json`)
     const data = await r.body.getReader()
     // console.log("value after getreader", data)
@@ -10,6 +10,7 @@ export default {
     // data.
       // .then(allGames => allGames.map(game => game.player2 === null))
   },
+  
   async createNewGame(newGame) {
     const r = await fetch(`https://connect4-4a167.firebaseio.com/games.json`, {
       method: "POST",
