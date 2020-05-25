@@ -1,4 +1,5 @@
 import React from 'react';
+import Timer from '../timer/Timer'
 //import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -8,15 +9,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import {  } from '@fortawesome/pro-solid-svg-icons';
 import { faAxeBattle, faCircle, faChevronDown } from '@fortawesome/pro-solid-svg-icons'
 import { faDragon } from "@fortawesome/pro-duotone-svg-icons";
+import CreateNewGame from '../home/CreateNew';
+import DM from '../../modules/DataManager'
 //import { database } from "firebase"
 
 const shortid = require('shortid');
 
 // actual game board --- contains 2d array comprising the "board", game logic, game pieces, etc.
-
-
-
-
 
 class Board extends React.Component {
 
@@ -33,8 +32,9 @@ class Board extends React.Component {
      }
 
 componentDidMount(){
-
-     console.log('Board mounted');
+     // const openGames = DM.getOpenGames();
+     // console.log('OPEN GAMES', openGames)
+     // console.log('Board mounted');
 
      const gameGrid = [
          [{value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}, {value: 0, turnNumber: 0}],
@@ -75,7 +75,6 @@ fullColumnCheck = (columnIndex) => {
      return columnPlayable;
 }
 
-
 dropPiece = (e) => {
      e.preventDefault();
      const gameGrid = this.state.gameGrid;
@@ -97,14 +96,11 @@ dropPiece = (e) => {
 
      // run winCheck here
      this.winCheck(this.state.gameGrid);
-
 }
-
-
 
 winCheck = (gameGrid) => {
 
-     //console.log("winCheck");
+     console.log("winCheck");
      console.log(gameGrid);
 
      let fullRows = [];
@@ -126,7 +122,6 @@ winCheck = (gameGrid) => {
                         winner: { name: 'Draw', player: 'draw'},
                       });
                }
-
 
                if( numZeros < 4 ) {
 
@@ -157,20 +152,48 @@ winCheck = (gameGrid) => {
      // check columns
      for (let i = 0; i < 7; i++) {
           const column = this.state.gameGrid.map(function(value,index) { return value[i].value; });
+          console.log(column);
           this.submitForTesting(column);
      }
 
+     //check diagonals
+     const diagonalsFromTop = this.diagonal(gameGrid);
+     for (let i = 0; i < diagonalsFromTop.length; i++) {
+          this.submitForTesting(diagonalsFromTop[i]);
+     }
 
-     // check Diagonals by converting each possible diagonal into an array
-     this.transformDiagonalPhase1();
-     this.transformDiagonalPhase2();
-     this.transformDiagonalPhase3();
-     this.transformDiagonalPhase4();
-     this.transformDiagonalPhase5();
-     this.transformDiagonalPhase6();
-
+     const diagonalsFromBottom = this.diagonal(gameGrid, true);
+     for (let i = 0; i < diagonalsFromBottom.length; i++) {
+          this.submitForTesting(diagonalsFromBottom[i]);
+     }
 
 }
+
+
+
+diagonal = (array, bottomToTop) => {
+    var Ylength = array.length;
+    var Xlength = array[0].length;
+		var maxLength = Math.max(Xlength, Ylength);
+    var temp;
+    var returnArray = [];
+    for (var k = 0; k <= 2 * (maxLength - 1); ++k) {
+        temp = [];
+        for (var y = Ylength - 1; y >= 0; --y) {
+            var x = k - (bottomToTop ? Ylength - y : y);
+            if (x >= 0 && x < Xlength) {
+                temp.push(array[y][x].value);
+            }
+        }
+        if(temp.length > 0) {
+            //returnArray.push(temp.join(','));
+            returnArray.push(temp);
+        }
+    }
+    return returnArray;
+}
+
+
 
 
 checkFourInARow = (array) => {
@@ -185,9 +208,6 @@ checkFourInARow = (array) => {
         return ++count === 4;
     });
 }
-
-
-
 
 submitForTesting = (array) => {
 
@@ -217,262 +237,7 @@ submitForTesting = (array) => {
           }
 
      } else { return; }
-
 }
-
-
-
-
-// Checks 4 diagonals, from 0,5 to 3,5
-// Y-0    0 0 0 0 0 / /
-// Y-1    0 0 0 0 / / /
-// Y-2    0 0 0 / / / /
-// Y-3    0 0 / / / / 0
-// Y-4    0 / / / / 0 0
-// Y-5    / / / / 0 0 0
-//
-// X       0 1 2 3 4 5 6
-transformDiagonalPhase1 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 5; yCoord >= 0; yCoord--) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
-
-
-
-
-
-// Checks 1 diagonal, from 0,4 to 4,0
-// Y-0    0 0 0 0 / 0 0
-// Y-1    0 0 0 / 0 0 0
-// Y-2    0 0 / 0 0 0 0
-// Y-3    0 / 0 0 0 0 0
-// Y-4    / 0 0 0 0 0 0
-// Y-5    0 0 0 0 0 0 0
-//
-// X       0 1 2 3 4 5 6
-
-transformDiagonalPhase2 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 4; yCoord >= 0; yCoord--) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
-
-
-
-// Checks 1 diagonal, from 0,3 to 3,0
-// Y-0    0 0 0 / 0 0 0
-// Y-1    0 0 / 0 0 0 0
-// Y-2    0 / 0 0 0 0 0
-// Y-3    / 0 0 0 0 0 0
-// Y-4    0 0 0 0 0 0 0
-// Y-5    0 0 0 0 0 0 0
-//
-// X       0 1 2 3 4 5 6
-
-transformDiagonalPhase3 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 3; yCoord >= 0; yCoord--) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
-
-// Checks 4 diagonals, from 0,0 to 6,3
-// Y-0    \ \ \ \ 0 0 0
-// Y-1    0 \ \ \ \ 0 0
-// Y-2    0 0 \ \ \ \ 0
-// Y-3    0 0 0 \ \ \ \
-// Y-4    0 0 0 0 \ \ \
-// Y-5    0 0 0 0 0 \ \
-//
-// X       0 1 2 3 4 5 6
-
-transformDiagonalPhase4 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 0; yCoord <= 5; yCoord++) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
-
-
-
-// Checks 1 diagonal, from 0,1 to 4,0
-// Y-0    0 0 0 0 0 0 0
-// Y-1    \ 0 0 0 0 0 0
-// Y-2    0 \ 0 0 0 0 0
-// Y-3    0 0 \ 0 0 0 0
-// Y-4    0 0 0 \ 0 0 0
-// Y-5    0 0 0 0 \ 0 0
-//
-// X       0 1 2 3 4 5 6
-
-transformDiagonalPhase5 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 1; yCoord <= 5; yCoord++) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
-
-
-
-// Checks 1 diagonal, from 0,2 to 3,0
-// Y-0    0 0 0 0 0 0 0
-// Y-1    0 0 0 0 0 0 0
-// Y-2    \ 0 0 0 0 0 0
-// Y-3    0 \ 0 0 0 0 0
-// Y-4    0 0 \ 0 0 0 0
-// Y-5    0 0 0 \ 0 0 0
-//
-// X       0 1 2 3 4 5 6
-
-transformDiagonalPhase6 = () => {
-     for (let xCoord = 0; xCoord <= 6; xCoord++) {
-          let x = xCoord;
-          let coordinateArray = [];
-
-          for (let yCoord = 2; yCoord <= 5; yCoord++) {
-               if( x > 6 ) break;
-               let y = yCoord;
-               //console.log(x + "," + y);
-               //let x = updatedX;
-               coordinateArray.push({x,y});
-               x++;
-          }
-
-          if( coordinateArray.length < 4 ) break;
-
-          // get values from coordinate array, then submitForTesting
-          let winCheckDiagonal = [];
-          coordinateArray.forEach(
-               coordinate => {
-                    const getXColumnArray = this.state.gameGrid.map(function(value,index) { return value[coordinate.x].value; });
-                    const getYRowValue = getXColumnArray[coordinate.y];
-                    winCheckDiagonal.push(getYRowValue);
-
-                    this.submitForTesting(winCheckDiagonal);
-
-               }
-          );
-     }
-}
-
 
 
 render() {
@@ -500,7 +265,6 @@ render() {
                winner = <div className="announcement winner draw"><h3>This game was a draw.</h3></div>;
                winnerBoardClass = ' winner-draw';
           }
-
      }
 
     return (
@@ -519,6 +283,7 @@ render() {
                </ButtonGroup>
           }
           </div>
+
           {gameGrid.map((row, index) => {
            return (
             <div key={index} className={"board-row row-"+ index}>
@@ -543,7 +308,7 @@ render() {
            )
           })}
           </div>
-
+          <Timer/>
       </div>
      );
 

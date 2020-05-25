@@ -87,7 +87,6 @@ authenticateGoogle = () => {
 
 
     render() {
-
          const { email, password, error } = this.state;
          //console.log(this.props.registerNewUser);
 
