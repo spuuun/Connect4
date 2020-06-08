@@ -6,6 +6,7 @@ import Board from './game/Board';
 import OpenGameList from './game/OpenGameList'
 import { faHome } from '@fortawesome/pro-solid-svg-icons';
 import Home from './home/Home'
+import ResetPassword from './auth/ResetPassword';
 
 export default class ApplicationViews extends Component {
     render() {
@@ -21,6 +22,7 @@ export default class ApplicationViews extends Component {
                     return <Register />
                 }} />
                 <Route path="/login" component={LoginForm} />
+                <Route path="/resetpassword" component={ResetPassword} />
             </>
         )
     }
