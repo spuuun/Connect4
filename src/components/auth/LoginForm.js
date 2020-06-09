@@ -20,14 +20,17 @@ function Login(props) {
     })
 
     function handleEmailChange(e) {
+        e.preventDefault
         console.log('handle email change', e.target.value)
         setLoginEmail(e.target.value)
     }
     function handlePasswordChange(e) {
+        e.preventDefault
         console.log('handle pwd change', e.target.value)
         setLoginPassword(e.target.value)
     }
     function handleRememberChange(e) {
+        e.preventDefault
         console.log('handle remember change', e.target.value)
         setRemember(!remember)
     }
