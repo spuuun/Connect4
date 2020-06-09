@@ -208,7 +208,7 @@ function Login(props) {
                             control={<Checkbox value={remember} onChange={(e) => handleRememberChange(e)} color='primary' />}
                             label='Remember Me'
                         />
-                        <Typography id='forgot-password-link' component='h4' variant='h6'><Link to='/reset-password'>Forgot Password?</Link></Typography>
+                        <Typography id='forgot-password-link' component='h4' variant='h6'><Link to='/resetpassword'>Forgot Password?</Link></Typography>
 
                         <Typography id='register-new-account-link' component='h4' variant='h6'>Don't have and account? <Link to='/register'>Register here</Link></Typography>
 
